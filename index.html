@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SNEEZE-01 // BLESS PROTOCOL</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="scanlines" aria-hidden="true"></div>
+    <div class="hazard" aria-hidden="true"></div>
+
+    <main class="terminal">
+      <header class="titlebar">
+        <span>SNEEZE-01</span>
+        <span class="cross-mark" aria-hidden="true">+</span>
+        <span>MEDICAL / INDUSTRIAL</span>
+      </header>
+
+      <section class="viewport">
+        <div class="reticle" aria-hidden="true">
+          <span class="arm h"></span>
+          <span class="arm v"></span>
+          <span class="hub"></span>
+        </div>
+        <p class="eyebrow">BLESS_YOU.EXE</p>
+        <h1 id="headline">AWAIT SNEEZE INPUT</h1>
+        <p id="status" class="status">> ARM MIC, THEN SNEEZE.</p>
+      </section>
+
+      <div class="meter-row">
+        <span>AUDIO</span>
+        <div class="meter" aria-hidden="true">
+          <span id="level" class="level"></span>
+        </div>
+        <span id="db">00</span>
+      </div>
+
+      <div class="controls">
+        <button id="listen" type="button">[ ARM MIC ]</button>
+        <label class="sensitivity">
+          GAIN
+          <input id="sensitivity" type="range" min="1" max="4" step="0.1" value="3" />
+        </label>
+      </div>
+
+      <footer class="statusbar">
+        <span>BLESSINGS <strong id="count">00</strong></span>
+        <span>LOCAL AUDIO ONLY</span>
+        <span>THRESH: LOW</span>
+      </footer>
+    </main>
+    <script src="app.js"></script>
+  </body>
+</html>
