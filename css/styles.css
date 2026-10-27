@@ -1,0 +1,759 @@
+/* ==========================================================================
+   SWISS INTERNATIONAL TYPOGRAPHIC STYLE — STRICT DUO-TONE SYSTEM
+   ========================================================================== */
+
+:root {
+  /* Default Duo-Tone: Archival Paper & Deep Carbon Ink */
+  --bg: #F4F4F0;
+  --ink: #0D0D0D;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-mono: 'Space Mono', Menlo, Monaco, Consolas, monospace;
+  --border-width: 1.5px;
+  --transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+[data-theme="vermillion"] {
+  --bg: #FF3500;
+  --ink: #0D0D0D;
+}
+
+[data-theme="dark"] {
+  --bg: #0C0C0D;
+  --ink: #F4F4F0;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border-radius: 0 !important; /* Strict Swiss geometric rigidity */
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg);
+  color: var(--ink);
+  min-height: 100vh;
+  padding: 0;
+  line-height: 1.4;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: var(--transition);
+  border-top: 6px solid var(--ink);
+}
+
+/* ==========================================================================
+   HEADER / METADATA ROW
+   ========================================================================== */
+.swiss-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  border-bottom: var(--border-width) solid var(--ink);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.col-meta {
+  padding: 16px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  border-right: var(--border-width) solid var(--ink);
+}
+
+.col-meta:last-child {
+  border-right: none;
+}
+
+.col-center {
+  align-items: flex-start;
+}
+
+.col-right {
+  align-items: flex-end;
+}
+
+.meta-tag {
+  opacity: 0.65;
+  font-size: 0.68rem;
+}
+
+.meta-title {
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.status-indicator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+}
+
+.status-square {
+  width: 9px;
+  height: 9px;
+  background-color: var(--ink);
+  display: inline-block;
+}
+
+.status-listening .status-square {
+  animation: squareBlink 1s infinite steps(2, start);
+}
+
+.status-sneezing .status-square {
+  animation: squareBlink 0.2s infinite steps(2, start);
+}
+
+@keyframes squareBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Theme buttons */
+.theme-switchers {
+  display: flex;
+  gap: 6px;
+  margin-top: 2px;
+}
+
+.theme-btn {
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid var(--ink);
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  padding: 4px 8px;
+  cursor: pointer;
+  letter-spacing: 0.05em;
+  transition: var(--transition);
+}
+
+.theme-btn:hover,
+.theme-btn.active {
+  background: var(--ink);
+  color: var(--bg);
+}
+
+/* ==========================================================================
+   MODULAR GRID LAYOUT
+   ========================================================================== */
+.swiss-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  border-bottom: var(--border-width) solid var(--ink);
+}
+
+@media (max-width: 960px) {
+  .swiss-grid {
+    grid-template-columns: 1fr;
+  }
+  .swiss-header {
+    grid-template-columns: 1fr;
+  }
+  .col-meta {
+    border-right: none;
+    border-bottom: var(--border-width) solid var(--ink);
+  }
+  .col-right {
+    align-items: flex-start;
+  }
+}
+
+.grid-cell {
+  padding: 36px 32px;
+  border-right: var(--border-width) solid var(--ink);
+  border-bottom: var(--border-width) solid var(--ink);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: var(--transition);
+}
+
+.grid-cell:nth-child(2n) {
+  border-right: none;
+}
+
+.cell-index {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.cell-index::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--ink);
+  opacity: 0.3;
+}
+
+/* ==========================================================================
+   HERO DISPLAY (SECTION 01)
+   ========================================================================== */
+.hero-cell {
+  min-height: 520px;
+  justify-content: space-between;
+}
+
+/* Visual Flash Trigger State */
+.hero-cell.triggered {
+  background-color: var(--ink);
+  color: var(--bg);
+}
+
+.hero-cell.triggered .cell-index::after {
+  background: var(--bg);
+}
+
+.hero-cell.triggered .swiss-btn {
+  border-color: var(--bg);
+  color: var(--bg);
+}
+
+.hero-cell.triggered .btn-hero {
+  background: var(--bg);
+  color: var(--ink);
+}
+
+.monumental-text-wrap {
+  margin: 10px 0 30px 0;
+}
+
+.pre-label {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  margin-bottom: 12px;
+  opacity: 0.85;
+}
+
+.monumental-heading {
+  font-size: clamp(3.2rem, 7.5vw, 6.8rem);
+  font-weight: 900;
+  line-height: 0.92;
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
+  word-break: break-word;
+  transition: transform 0.1s ease;
+}
+
+.reaction-subphrase {
+  margin-top: 24px;
+  font-size: clamp(1.1rem, 1.8vw, 1.6rem);
+  font-weight: 500;
+  line-height: 1.35;
+  letter-spacing: -0.02em;
+  max-width: 680px;
+  opacity: 0.9;
+}
+
+/* Hero Stats Row */
+.hero-stats-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: var(--border-width) solid var(--ink);
+  border-bottom: var(--border-width) solid var(--ink);
+  margin: 28px 0;
+  font-family: var(--font-mono);
+}
+
+.hero-cell.triggered .hero-stats-row {
+  border-color: var(--bg);
+}
+
+.stat-block {
+  padding: 14px 16px;
+  border-right: 1px solid var(--ink);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.stat-block:last-child {
+  border-right: none;
+}
+
+.hero-cell.triggered .stat-block {
+  border-color: var(--bg);
+}
+
+.stat-label {
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  opacity: 0.7;
+}
+
+.stat-value {
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+/* Action Row Buttons */
+.action-row {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.swiss-btn {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 16px 28px;
+  border: var(--border-width) solid var(--ink);
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  transition: var(--transition);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.swiss-btn:hover {
+  background: var(--ink);
+  color: var(--bg);
+}
+
+.btn-hero {
+  background: var(--ink);
+  color: var(--bg);
+  flex: 1.2;
+}
+
+.btn-hero:hover {
+  background: transparent;
+  color: var(--ink);
+}
+
+.btn-hero.active {
+  background: transparent;
+  color: var(--ink);
+  box-shadow: inset 0 0 0 3px var(--ink);
+}
+
+.btn-secondary {
+  flex: 1;
+}
+
+.btn-sm {
+  padding: 10px 18px;
+  font-size: 0.72rem;
+}
+
+.btn-ghost {
+  border-color: transparent;
+  padding: 6px 12px;
+}
+
+.btn-ghost:hover {
+  border-color: var(--ink);
+  background: transparent;
+  color: var(--ink);
+}
+
+/* ==========================================================================
+   RADAR & SPECTRAL SECTION (SECTION 02)
+   ========================================================================== */
+.radar-cell {
+  background: transparent;
+}
+
+.canvas-box {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  border: var(--border-width) solid var(--ink);
+  background: var(--bg);
+  margin-bottom: 20px;
+}
+
+#visualizerCanvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.threshold-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 55%;
+  height: 1.5px;
+  background: var(--ink);
+  pointer-events: none;
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 8px;
+}
+
+.threshold-label {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+  background: var(--ink);
+  color: var(--bg);
+  padding: 2px 6px;
+  transform: translateY(-50%);
+}
+
+.signal-row {
+  margin-bottom: 24px;
+}
+
+.signal-labels {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.signal-bar-track {
+  position: relative;
+  width: 100%;
+  height: 12px;
+  border: var(--border-width) solid var(--ink);
+  background: transparent;
+}
+
+.signal-bar-fill {
+  height: 100%;
+  width: 0%;
+  background-color: var(--ink);
+  transition: width 0.05s linear;
+}
+
+.signal-bar-marker {
+  position: absolute;
+  top: -2px;
+  bottom: -2px;
+  width: 2px;
+  background: var(--ink);
+  left: 55%;
+  box-shadow: 0 0 0 1px var(--bg);
+}
+
+/* Technical Controls */
+.controls-column {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.control-row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.control-header {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.numeric-val {
+  font-weight: 700;
+}
+
+.scale-ticks {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  opacity: 0.6;
+  margin-top: 2px;
+}
+
+/* Mechanical range inputs */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 4px;
+  background: var(--ink);
+  outline: none;
+  margin: 6px 0;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 20px;
+  background: var(--bg);
+  border: 2px solid var(--ink);
+  cursor: pointer;
+  transition: transform 0.1s ease;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scaleY(1.2);
+}
+
+.button-row {
+  margin-top: 8px;
+}
+
+/* ==========================================================================
+   PERSONALITY & VOICE (SECTION 03)
+   ========================================================================== */
+.personality-cell {
+  gap: 20px;
+}
+
+.persona-selector {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 8px;
+}
+
+.persona-btn {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 10px 12px;
+  border: 1px solid var(--ink);
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  text-align: left;
+  letter-spacing: 0.05em;
+  transition: var(--transition);
+}
+
+.persona-btn:hover {
+  background: var(--ink);
+  color: var(--bg);
+}
+
+.persona-btn.active {
+  background: var(--ink);
+  color: var(--bg);
+}
+
+.phrase-block {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.phrase-label-row {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.preset-indicator {
+  opacity: 0.65;
+}
+
+.swiss-textarea {
+  width: 100%;
+  padding: 14px;
+  font-family: var(--font-sans);
+  font-size: 1.05rem;
+  font-weight: 500;
+  line-height: 1.4;
+  border: var(--border-width) solid var(--ink);
+  background: transparent;
+  color: var(--ink);
+  resize: vertical;
+  outline: none;
+}
+
+.swiss-textarea:focus {
+  outline: 2px solid var(--ink);
+}
+
+.voice-mods-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  align-items: flex-end;
+}
+
+@media (max-width: 640px) {
+  .voice-mods-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.mod-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.mod-cell label {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+.swiss-select {
+  width: 100%;
+  padding: 10px 12px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  border: var(--border-width) solid var(--ink);
+  background: transparent;
+  color: var(--ink);
+  outline: none;
+  cursor: pointer;
+}
+
+.checkbox-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 8px 0;
+}
+
+.checkbox-wrap input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.custom-check {
+  width: 14px;
+  height: 14px;
+  border: var(--border-width) solid var(--ink);
+  display: inline-block;
+  position: relative;
+}
+
+.checkbox-wrap input:checked ~ .custom-check::after {
+  content: '';
+  position: absolute;
+  inset: 2px;
+  background: var(--ink);
+}
+
+/* ==========================================================================
+   LEDGER / EVENT CHRONOLOGY (SECTION 04)
+   ========================================================================== */
+.ledger-cell {
+  padding-bottom: 24px;
+}
+
+.ledger-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.table-header {
+  display: grid;
+  grid-template-columns: 40px 90px 90px 1fr;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 10px 0;
+  border-bottom: var(--border-width) solid var(--ink);
+  opacity: 0.7;
+}
+
+.ledger-body {
+  display: flex;
+  flex-direction: column;
+  max-height: 280px;
+  overflow-y: auto;
+}
+
+.ledger-row {
+  display: grid;
+  grid-template-columns: 40px 90px 90px 1fr;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--ink);
+  align-items: center;
+}
+
+.ledger-row:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.col-num {
+  font-weight: 700;
+}
+
+.col-intensity {
+  font-weight: 700;
+}
+
+.col-phrase {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.empty-ledger-row {
+  padding: 32px 0;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  text-align: center;
+  opacity: 0.45;
+}
+
+/* ==========================================================================
+   COLOPHON FOOTER
+   ========================================================================== */
+.swiss-footer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 24px 32px;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
+  line-height: 1.7;
+  opacity: 0.75;
+}
+
+.colophon-right {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+}
+
+.colophon-left {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 640px) {
+  .swiss-footer {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .colophon-right {
+    text-align: left;
+  }
+}

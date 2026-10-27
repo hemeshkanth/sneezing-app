@@ -1,0 +1,20 @@
+{
+  "name": "sneezing-app",
+  "version": "1.0.0",
+  "description": "An interactive acoustic companion that detects human sneezes in real-time and says 'Bless You!' with customizable expressive personalities.",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve -l 3000 .",
+    "dev": "python3 -m http.server 3000"
+  },
+  "keywords": [
+    "sneeze",
+    "bless-you",
+    "web-audio-api",
+    "speech-synthesis",
+    "interactive-sound",
+    "new-media-design"
+  ],
+  "author": "Chirag Rajdeo",
+  "license": "MIT"
+}

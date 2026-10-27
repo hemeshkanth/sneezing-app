@@ -1,0 +1,18 @@
+# OS metadata
+.DS_Store
+Thumbs.db
+
+# Environment & secrets
+.env
+.env.local
+*.env
+
+# Dependencies & caches
+node_modules/
+__pycache__/
+*.pyc
+.venv/
+env/
+dist/
+build/
+.cache/

@@ -1,55 +1,231 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SNEEZE-01 // BLESS PROTOCOL</title>
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body>
-    <div class="scanlines" aria-hidden="true"></div>
-    <div class="hazard" aria-hidden="true"></div>
+<html lang="en" data-theme="paper">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BLESS-O-MATIC — Acoustic Sneeze Detection System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
 
-    <main class="terminal">
-      <header class="titlebar">
-        <span>SNEEZE-01</span>
-        <span class="cross-mark" aria-hidden="true">+</span>
-        <span>MEDICAL / INDUSTRIAL</span>
-      </header>
+  <!-- Top Metadata & Technical Bar -->
+  <header class="swiss-header">
+    <div class="col-meta">
+      <span class="meta-tag">SYSTEM / NID-NMD-SEM03</span>
+      <span class="meta-title">BLESS-O-MATIC — V1.0</span>
+    </div>
+    <div class="col-meta col-center">
+      <span class="meta-tag">OPERATIONAL STATUS</span>
+      <div id="micStatusBadge" class="status-indicator">
+        <span class="status-square"></span>
+        <span id="micStatusText">IDLE / STANDBY</span>
+      </div>
+    </div>
+    <div class="col-meta col-right">
+      <span class="meta-tag">PALETTE TOGGLE</span>
+      <div class="theme-switchers">
+        <button id="themePaperBtn" class="theme-btn active" data-set-theme="paper">PAPER / INK</button>
+        <button id="themeVermillionBtn" class="theme-btn" data-set-theme="vermillion">VERMILLION / INK</button>
+        <button id="themeInvertBtn" class="theme-btn" data-set-theme="dark">CARBON / CHALK</button>
+      </div>
+    </div>
+  </header>
 
-      <section class="viewport">
-        <div class="reticle" aria-hidden="true">
-          <span class="arm h"></span>
-          <span class="arm v"></span>
-          <span class="hub"></span>
+  <main class="swiss-grid">
+
+    <!-- Monumental Typographic Hero Section -->
+    <section class="grid-cell hero-cell" id="heroDisplay">
+      <div class="cell-index">01 / TYPOGRAPHIC REACTION DISPLAY</div>
+      
+      <div class="monumental-text-wrap">
+        <div class="pre-label" id="reactionStateLabel">ACOUSTIC MONITORING INACTIVE</div>
+        <div class="monumental-heading" id="heroHeadline">
+          WAITING.
         </div>
-        <p class="eyebrow">BLESS_YOU.EXE</p>
-        <h1 id="headline">AWAIT SNEEZE INPUT</h1>
-        <p id="status" class="status">> ARM MIC, THEN SNEEZE.</p>
-      </section>
-
-      <div class="meter-row">
-        <span>AUDIO</span>
-        <div class="meter" aria-hidden="true">
-          <span id="level" class="level"></span>
+        <div class="reaction-subphrase" id="heroSubphrase">
+          Press [ START LISTENING ] to initiate real-time acoustic analysis.
         </div>
-        <span id="db">00</span>
       </div>
 
-      <div class="controls">
-        <button id="listen" type="button">[ ARM MIC ]</button>
-        <label class="sensitivity">
-          GAIN
-          <input id="sensitivity" type="range" min="1" max="4" step="0.1" value="3" />
-        </label>
+      <!-- Hero Statistics Bar -->
+      <div class="hero-stats-row">
+        <div class="stat-block">
+          <span class="stat-label">TOTAL BLESSINGS</span>
+          <span class="stat-value" id="blessingCount">00</span>
+        </div>
+        <div class="stat-block">
+          <span class="stat-label">LAST TRANSIENT</span>
+          <span class="stat-value" id="lastTransientText">—</span>
+        </div>
+        <div class="stat-block">
+          <span class="stat-label">EXPLOSION RATIO</span>
+          <span class="stat-value" id="lastRatioText">—</span>
+        </div>
       </div>
 
-      <footer class="statusbar">
-        <span>BLESSINGS <strong id="count">00</strong></span>
-        <span>LOCAL AUDIO ONLY</span>
-        <span>THRESH: LOW</span>
-      </footer>
-    </main>
-    <script src="app.js"></script>
-  </body>
+      <!-- Primary Action Buttons -->
+      <div class="action-row">
+        <button id="toggleMicBtn" class="swiss-btn btn-hero">
+          <span id="toggleMicLabel">START LISTENING</span>
+        </button>
+        <button id="testSneezeBtn" class="swiss-btn btn-secondary">
+          <span>SIMULATE SNEEZE [TEST]</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- Acoustic Waveform & Threshold Module -->
+    <section class="grid-cell radar-cell">
+      <div class="cell-index">02 / ACOUSTIC RADAR & SPECTRAL FLUX</div>
+      
+      <div class="canvas-box">
+        <canvas id="visualizerCanvas" width="600" height="200"></canvas>
+        <div class="threshold-line" id="thresholdGuideLine">
+          <span class="threshold-label" id="thresholdLabel">THRESHOLD: 45%</span>
+        </div>
+      </div>
+
+      <!-- Signal Level Progress Line -->
+      <div class="signal-row">
+        <div class="signal-labels">
+          <span>REAL-TIME LEVEL</span>
+          <span id="currentLevelText">00.0%</span>
+        </div>
+        <div class="signal-bar-track">
+          <div id="meterFill" class="signal-bar-fill"></div>
+          <div id="meterMarker" class="signal-bar-marker"></div>
+        </div>
+      </div>
+
+      <!-- Calibration & Parameters -->
+      <div class="controls-column">
+        <div class="control-row">
+          <div class="control-header">
+            <label for="sensitivitySlider">SENSITIVITY THRESHOLD</label>
+            <span id="sensitivityVal" class="numeric-val">55%</span>
+          </div>
+          <input type="range" id="sensitivitySlider" min="20" max="90" value="55" step="1" />
+          <div class="scale-ticks">
+            <span>[20% HIGH NOISE]</span>
+            <span>[DEFAULT 55%]</span>
+            <span>[90% QUIET ROOM]</span>
+          </div>
+        </div>
+
+        <div class="control-row">
+          <div class="control-header">
+            <label for="freqWeightSlider">HIGH-FREQ TURBULENCE (2kHz–8kHz)</label>
+            <span id="freqWeightVal" class="numeric-val">75%</span>
+          </div>
+          <input type="range" id="freqWeightSlider" min="20" max="100" value="75" step="5" />
+          <div class="scale-ticks">
+            <span>[BROADBAND]</span>
+            <span>[ISOLATE "ACHOO" FRICTION]</span>
+          </div>
+        </div>
+
+        <div class="button-row">
+          <button id="calibrateBtn" class="swiss-btn btn-sm">
+            CALIBRATE ROOM NOISE
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Personality & Voice Engine -->
+    <section class="grid-cell personality-cell">
+      <div class="cell-index">03 / VOICE PROFILE & SYNTHESIS</div>
+
+      <div class="persona-selector" id="personalityChips">
+        <button class="persona-btn active" data-preset="butler">01 / BUTLER</button>
+        <button class="persona-btn" data-preset="grandma">02 / GRANDMA</button>
+        <button class="persona-btn" data-preset="cyberbot">03 / CYBERBOT</button>
+        <button class="persona-btn" data-preset="anime">04 / ANIME</button>
+        <button class="persona-btn" data-preset="zen">05 / ZEN</button>
+        <button class="persona-btn" data-preset="sarcastic">06 / SARCASTIC</button>
+        <button class="persona-btn" data-preset="custom">07 / CUSTOM</button>
+      </div>
+
+      <div class="phrase-block">
+        <div class="phrase-label-row">
+          <label for="customPhraseInput">SPEECH PHRASE</label>
+          <span class="preset-indicator" id="presetTag">PRESET: 01 / BUTLER</span>
+        </div>
+        <textarea id="customPhraseInput" rows="2" class="swiss-textarea"></textarea>
+      </div>
+
+      <div class="voice-mods-grid">
+        <div class="mod-cell">
+          <label for="voiceSelect">SYSTEM SYNTHESIZER</label>
+          <select id="voiceSelect" class="swiss-select">
+            <option value="">DEFAULT SYSTEM VOICE</option>
+          </select>
+        </div>
+
+        <div class="mod-cell">
+          <div class="control-header">
+            <label for="pitchSlider">PITCH</label>
+            <span id="pitchVal" class="numeric-val">1.0x</span>
+          </div>
+          <input type="range" id="pitchSlider" min="0.5" max="1.8" value="1.0" step="0.1" />
+        </div>
+
+        <div class="mod-cell">
+          <div class="control-header">
+            <label for="rateSlider">RATE</label>
+            <span id="rateVal" class="numeric-val">1.0x</span>
+          </div>
+          <input type="range" id="rateSlider" min="0.7" max="1.5" value="1.0" step="0.1" />
+        </div>
+
+        <div class="mod-cell toggle-cell">
+          <label class="checkbox-wrap">
+            <input type="checkbox" id="chimeToggle" checked />
+            <span class="custom-check"></span>
+            <span class="check-label">ACOUSTIC CHIME PING</span>
+          </label>
+        </div>
+      </div>
+    </section>
+
+    <!-- Chronology / Sneeze Ledger -->
+    <section class="grid-cell ledger-cell">
+      <div class="ledger-header">
+        <div class="cell-index">04 / EVENT CHRONOLOGY LEDGER</div>
+        <button id="clearLogBtn" class="swiss-btn btn-ghost btn-sm">CLEAR LOG</button>
+      </div>
+
+      <div class="table-header">
+        <span class="col-num">#</span>
+        <span class="col-time">TIME</span>
+        <span class="col-intensity">BLAST</span>
+        <span class="col-phrase">RESPONSE PHRASE</span>
+      </div>
+
+      <div id="logList" class="ledger-body">
+        <div class="empty-ledger-row">
+          [ NO EVENTS RECORDED — SYSTEM ARMED ]
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Swiss Colophon Footer -->
+  <footer class="swiss-footer">
+    <div class="colophon-left">
+      <span>NATIONAL INSTITUTE OF DESIGN</span>
+      <span>M.DES IN NEW MEDIA DESIGN / SEMESTER 03</span>
+    </div>
+    <div class="colophon-right">
+      <span>CLIENT-SIDE DSP VIA WEB AUDIO API + SPEECH SYNTHESIS</span>
+      <span>ZERO DATA TRANSMISSION / 100% PRIVATE & LOCAL</span>
+    </div>
+  </footer>
+
+  <script type="module" src="js/app.js"></script>
+</body>
 </html>
